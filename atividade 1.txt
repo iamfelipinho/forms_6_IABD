@@ -1,0 +1,36 @@
+atividade 1:
+
+
+import numpy as np
+import pandas as pd
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+# Criar o DataFrame com os dados dos vinhos
+data = {
+    'Teor Alcoólico': [3, 4, 5, 6],
+    'Acidez': ['muito', 'pouco', 'médio', 'baixo'],
+    'pH': [4.3, 2.8, 4.2, 3.9]
+}
+
+df = pd.DataFrame(data)
+
+# Criar uma matriz numpy com os dados
+X = df[['Teor Alcoólico', 'pH']].to_numpy()
+
+# Especificar o número de clusters desejado (por exemplo, 2 clusters)
+n_clusters = 2
+
+# Aplicar o algoritmo K-means
+kmeans = KMeans(n_clusters=n_clusters)
+kmeans.fit(X)
+
+# Adicionar as informações dos clusters de volta ao DataFrame
+df['Cluster'] = kmeans.labels_
+
+# Visualizar os resultados
+plt.scatter(X[:, 0], X[:, 1], c=kmeans.labels_, cmap='viridis')
+plt.xlabel('Teor Alcoólico')
+plt.ylabel('pH')
+plt.title('Clusterização de Vinhos')
+plt.show()

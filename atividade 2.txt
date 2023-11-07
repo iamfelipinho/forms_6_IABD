@@ -1,0 +1,26 @@
+atividade 2:
+
+
+import numpy as np
+from sklearn.ensemble import IsolationForest
+
+# Criar uma matriz numpy com as medições de corrente elétrica e tempo
+corrente_eletrica = np.array([5, 10, 14, 2, 1.5, 6])
+tempo = np.array([1, 2, 4, 6, 7, 10])
+
+# Organizar os dados em uma matriz (tempo, corrente elétrica)
+data = np.column_stack((tempo, corrente_eletrica))
+
+# Especificar o modelo Isolation Forest
+model = IsolationForest(contamination=0.1, random_state=42)  # Contaminação definida como 10%
+
+# Ajustar o modelo aos dados
+model.fit(data)
+
+# Identificar anomalias (valores atípicos)
+anomalias = model.predict(data)
+
+# Exibir as posições dos valores atípicos
+indices_anomalias = np.where(anomalias == -1)
+print("Índices das anomalias:", indices_anomalias)
+
